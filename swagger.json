@@ -1,0 +1,291 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Api Documentation",
+    "version": "1.0",
+    "title": "Api Documentation",
+    "termsOfService": "urn:tos",
+    "contact": {},
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "controller",
+      "description": "Controller"
+    }
+  ],
+  "paths": {
+    "/building/{bid}/lamp/{lid}/turn-off": {
+      "put": {
+        "tags": [
+          "controller"
+        ],
+        "summary": "turnOffLamp",
+        "operationId": "turnOffLampUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "bid",
+            "in": "path",
+            "description": "bid",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "lid",
+            "in": "path",
+            "description": "lid",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/building/{bid}/lamp/{lid}/turn-on": {
+      "put": {
+        "tags": [
+          "controller"
+        ],
+        "summary": "turnOnLamp",
+        "operationId": "turnOnLampUsingPUT",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "bid",
+            "in": "path",
+            "description": "bid",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "lid",
+            "in": "path",
+            "description": "lid",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/building/{id}": {
+      "get": {
+        "tags": [
+          "controller"
+        ],
+        "summary": "getBuildingDetails",
+        "operationId": "getBuildingDetailsUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/BuildingDetails"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/building{?address}": {
+      "get": {
+        "tags": [
+          "controller"
+        ],
+        "summary": "findBuilding",
+        "operationId": "findBuildingUsingGET",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "address",
+            "in": "query",
+            "description": "address",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Building"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "Building": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Building"
+    },
+    "BuildingDetails": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lamps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Lamp"
+          }
+        },
+        "rooms": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Room"
+          }
+        }
+      },
+      "title": "BuildingDetails"
+    },
+    "Lamp": {
+      "type": "object",
+      "properties": {
+        "coordinate": {
+          "$ref": "#/definitions/Point"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "turnedOn": {
+          "type": "boolean"
+        }
+      },
+      "title": "Lamp"
+    },
+    "Point": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "y": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Point"
+    },
+    "Room": {
+      "type": "object",
+      "properties": {
+        "bottomRight": {
+          "$ref": "#/definitions/Point"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "topLeft": {
+          "$ref": "#/definitions/Point"
+        }
+      },
+      "title": "Room"
+    }
+  }
+}
