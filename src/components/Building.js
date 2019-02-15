@@ -1,4 +1,11 @@
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+  Dimensions
+} from "react-native";
 import React from "react";
 import { connect } from "react-redux";
 import { toggleLight } from "../modules/buildings/actions";
@@ -13,24 +20,26 @@ class Building extends React.Component {
   };
   render() {
     return (
-      <View style={style.container}>
-        {this.props.building.rooms.map((room, id) => (
-          <View key={id + room[0]} style={generateRoomStyles(...room).room} />
-        ))}
-        {this.props.building.lamps.map((lamp, id) => (
-          <TouchableOpacity
-            key={id + lamp.coordinates[0]}
-            onPress={this.lampToggle(id, lamp.turnedOn)}
-            style={
-              generateLampStyles(
-                lamp.coordinates[0],
-                lamp.coordinates[1],
-                lamp.turnedOn
-              ).room
-            }
-          />
-        ))}
-      </View>
+      <ScrollView style={style.containerScrollView}>
+        <View style={style.container}>
+          {this.props.building.rooms.map((room, id) => (
+            <View key={id + room[0]} style={generateRoomStyles(...room).room} />
+          ))}
+          {this.props.building.lamps.map((lamp, id) => (
+            <TouchableOpacity
+              key={id + lamp.coordinates[0]}
+              onPress={this.lampToggle(id, lamp.turnedOn)}
+              style={
+                generateLampStyles(
+                  lamp.coordinates[0],
+                  lamp.coordinates[1],
+                  lamp.turnedOn
+                ).room
+              }
+            />
+          ))}
+        </View>
+      </ScrollView>
     );
   }
 }
@@ -47,8 +56,15 @@ export default connect(
 )(Building);
 
 const style = StyleSheet.create({
+  containerScrollView: {
+    height: Dimensions.get("screen").height,
+    width: Dimensions.get("screen").width,
+    flex: 1,
+    marginTop: 20
+,  },
   container: {
-    marginTop: 40,
+    height: Dimensions.get("screen").height,
+    width: Dimensions.get("screen").width,
     flex: 1
   }
 });

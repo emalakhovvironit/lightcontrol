@@ -21,7 +21,7 @@ const buildingDetails = [
   },
   {
     lamps: [Lamps[0], Lamps[3]],
-    rooms: [[0, 0, 100, 70], [70, 75, 100, 150], [100, 75, 200, 150]]
+    rooms: [[0, 0, 100, 70], [70, 70, 100, 150], [100, 70, 200, 150]]
   },
   {
     lamps: [Lamps[4], Lamps[5], Lamps[6]],
